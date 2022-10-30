@@ -1,0 +1,19 @@
+<ul ngbNav #nav="ngbNav" [activeId]="'asistente'" class="nav-tabs" class="bg-secondary">
+    <li [ngbNavItem] = "'control'">
+        <a ngbNavLink class="btn btn-secondary text-white">Control</a>
+        <ng-template ngbNavContent>
+            <app-crias></app-crias>
+        </ng-template>
+    </li>
+    <li [ngbNavItem] = "'asistente'">
+        <a ngbNavLink class="btn btn-secondary text-white">Asistente de Veteriario</a>
+        <ng-template ngbNavContent>
+            <app-sensores></app-sensores>
+        </ng-template>
+    </li>
+    <li [ngbNavItem] = "'veterinario'">
+        <a ngbNavLink class="btn btn-secondary text-white">Veterinario</a>
+        <ng-template ngbNavContent>Second content</ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>
