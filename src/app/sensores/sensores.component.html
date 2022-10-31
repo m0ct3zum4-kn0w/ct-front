@@ -1,22 +1,22 @@
 <div class="row m-4">
     <div class="col-4">
-        <app-registro-sensores [selected]="selected"></app-registro-sensores>
+        <app-registro-sensores [selected]="rowSelected" #registroSensores (reloadPlease)="loadCrias($event)"></app-registro-sensores>
     </div>
     <div class="col-8">
         <mat-card>
             <mat-card-header>
-                <mat-label>Clasificación de Crias</mat-label>
+                <mat-label class="mat-title">Clasificación de Carne</mat-label>
             </mat-card-header>
             <mat-card-content>
                 <table mat-table [dataSource]="crias" class="w-100">
                     <ng-container matColumnDef="ID">
                         <th mat-header-cell *matHeaderCellDef> ID </th>
-                        <td mat-cell *matCellDef="let cria"> {{cria.criaID}} </td>
+                        <td mat-cell *matCellDef="let cria"> {{cria.ID}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="Nombre">
                         <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                        <td mat-cell *matCellDef="let cria"> {{cria.nombre}} </td>
+                        <td mat-cell *matCellDef="let cria"> {{cria.Nombre}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="Peso">
@@ -29,7 +29,7 @@
                         <td mat-cell *matCellDef="let cria"> Color {{cria.musculo}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Temperatura">
+                    <!-- <ng-container matColumnDef="Temperatura">
                         <th mat-header-cell *matHeaderCellDef> Temperatura </th>
                         <td mat-cell *matCellDef="let cria"> {{cria.temperatura || 0}}º </td>
                     </ng-container>
@@ -47,16 +47,21 @@
                     <ng-container matColumnDef="Sanguinea">
                         <th mat-header-cell *matHeaderCellDef> Sanguinea </th>
                         <td mat-cell *matCellDef="let cria"> {{cria.sanguinea || 0}} </td>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container matColumnDef="Marmoleo">
                         <th mat-header-cell *matHeaderCellDef> Marmoleo </th>
                         <td mat-cell *matCellDef="let cria"> Calidad {{cria.marmoleo}} </td>
                     </ng-container>
 
-                    <ng-component matColumnDef="Clasificacion">
-                        <th mat-header-cell *matHeaderCellDef> Clasificacion</th>
-                        <td mat-cell *matCellDef="let cria"> <b>{{ cria.clasificacion }}</b> </td>
+                    <ng-component matColumnDef="Estado">
+                        <th mat-header-cell *matHeaderCellDef> Estado</th>
+                        <td mat-cell *matCellDef="let cria"> <b>{{ cria.Estado }}</b> </td>
+                    </ng-component>
+
+                    <ng-component matColumnDef="Carne">
+                        <th mat-header-cell *matHeaderCellDef> Carne</th>
+                        <td mat-cell *matCellDef="let cria"> <b>{{ cria.Carne }}</b> </td>
                     </ng-component>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row 

@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { RequestService } from 'src/app/request.service';
+import { DialogComponent } from '../../layouts/dialog/dialog.component';
 
 interface modelCrias {
   ID: number,
   Nombre: string,
-  Estado: 'Saludable' | 'Por Enfermar'
+  Estado: string
 }
 
 @Component({
@@ -14,29 +16,34 @@ interface modelCrias {
   ]
 })
 export class NormalComponent {
-  crias: modelCrias[] = [];
-  heads: string[] = ['ID', 'Nombre', 'Estado'];
+  @Input() crias: modelCrias[] = [];
+  @Output() reloadPlease = new EventEmitter<boolean>();
+  heads: string[] = ['ID', 'Nombre', 'Temp', 'Card', 'Resp', 'Sang', 'Estado'];
+  confirm: boolean = false;
 
-  constructor(private request: RequestService) {
-    this.getCrias();
-  }
+  constructor(private request: RequestService, public dialog: MatDialog) {}
 
-  getCrias(): void {
-    this.request.indexCrias().subscribe(crias => {
-      // Temporal solo para ajuste
-      this.crias = [];
-      for (let cria of crias.result) {
-        this.crias.push({
-          'ID': cria.criaID,
-          'Nombre': cria.nombre, 
-          'Estado': 'Saludable'
+  meter(rowSelected: modelCrias): void {
+    let confirmDialog = this.dialog.open(DialogComponent, {
+      data: {
+        mensaje: 'Mover cria a cuarentena',
+        isConfirm: true
+      }
+    });
+
+    confirmDialog.afterClosed().subscribe( result => {
+      if( result === true ){
+        this.request.aCuarentena( rowSelected.ID ).subscribe( response => {
+          let dialog = this.dialog.open(DialogComponent, {
+            data : {
+              mensaje : response.result
+            }
+          });
+          dialog.afterClosed().subscribe(() => {
+            this.reloadPlease.emit(true);
+          });
         });
       }
     });
-  }
-
-  setCria( rowSelected: modelCrias ): void {
-    console.log( rowSelected );
-    
   }
 }

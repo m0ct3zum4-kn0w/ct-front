@@ -1,8 +1,8 @@
 <div class="row p-4">
     <div class="col-6">
-        <app-normal></app-normal>
+        <app-normal [crias]="clasificacion" (reloadPlease)="loadCrias($event)"></app-normal>
     </div>
     <div class="col-6">
-        <app-cuarentena></app-cuarentena>
+        <app-cuarentena [cuarentena]="cuarentena" (reloadPlease)="loadCrias($event)"></app-cuarentena>
     </div>
 </div>

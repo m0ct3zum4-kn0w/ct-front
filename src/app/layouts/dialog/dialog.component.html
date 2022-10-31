@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>Mensaje de Servidor</h1>
 <div mat-dialog-content>{{ data.mensaje }}</div>
 <div mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close color="primary" class="w-100">Close</button>
+  <button mat-raised-button mat-dialog-close color="secondary">Close</button>
+  <button mat-raised-button mat-dialog-close color="primary" *ngIf="data.isConfirm" [mat-dialog-close]="true">Si</button>
 </div>
