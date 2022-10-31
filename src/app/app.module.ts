@@ -24,6 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogComponent } from './layouts/dialog/dialog.component';
 import { SensoresComponent } from './sensores/sensores.component';
 import { RegistroSensoresComponent } from './sensores/registro-sensores/registro-sensores.component';
+import { SaludComponent } from './salud/salud.component';
+import { NormalComponent } from './salud/normal/normal.component';
+import { CuarentenaComponent } from './salud/cuarentena/cuarentena.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { RegistroSensoresComponent } from './sensores/registro-sensores/registro
     RegistroComponent,
     DialogComponent,
     SensoresComponent,
-    RegistroSensoresComponent
+    RegistroSensoresComponent,
+    SaludComponent,
+    NormalComponent,
+    CuarentenaComponent
   ],
   imports: [
     BrowserModule,

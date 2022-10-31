@@ -5,15 +5,13 @@ import { RequestService } from "../request.service";
 @Component({
   selector: 'app-sensores',
   templateUrl: './sensores.component.html',
-  styleUrls: ['./sensores.component.css']
+  styleUrls: []
 })
 export class SensoresComponent implements OnInit {
   displayedColumns: any[] = ['ID', 'Nombre', 'Peso', 'Musculo', 'Marmoleo', 'Temperatura', 'Cardiaca', 'Sanguinea', 'Respiratoria', 'Clasificacion'];
   crias: any[] = [];
   @ViewChild(MatTable) table: any;
-  criaSelected: {nombre:string} = {
-    nombre : ''
-  };
+  selected: {} = {};
 
   constructor(private request: RequestService) { }
 
@@ -34,6 +32,6 @@ export class SensoresComponent implements OnInit {
   }
 
   clickOnRow(row: any) {
-    this.criaSelected = row;
+    this.selected = row;
   }
 }

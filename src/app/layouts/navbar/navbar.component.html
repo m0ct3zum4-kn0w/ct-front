@@ -13,7 +13,9 @@
     </li>
     <li [ngbNavItem] = "'veterinario'">
         <a ngbNavLink class="btn btn-secondary text-white">Veterinario</a>
-        <ng-template ngbNavContent>Second content</ng-template>
+        <ng-template ngbNavContent>
+            <app-salud></app-salud>
+        </ng-template>
     </li>
 </ul>
 <div [ngbNavOutlet]="nav"></div>

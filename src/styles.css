@@ -12,3 +12,12 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: lightsteelblue;
 }
+
+.mat-row {
+    cursor: pointer;
+}
+
+.mat-row:hover {
+    border-color: currentColor;
+    background-color: aliceblue;
+}

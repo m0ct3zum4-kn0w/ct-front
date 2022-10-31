@@ -1,0 +1,18 @@
+<mat-card class="p-4">
+    <mat-card-header>
+        <mat-card-title>
+            Clasificación de crias
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table #listado [dataSource]="crias" class="w-100">
+            <ng-container [matColumnDef]="head" *ngFor="let head of heads">
+                <th mat-header-cell *matHeaderCellDef> {{head}} </th>
+                <td mat-cell *matCellDef="let cria"> {{cria[head]}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="heads"></tr>
+            <tr mat-row (click)="setCria(row)" *matRowDef="let row; columns: heads;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
