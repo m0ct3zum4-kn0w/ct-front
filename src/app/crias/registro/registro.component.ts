@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { RequestService } from "../../request.service";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../layouts/dialog/dialog.component';
@@ -32,53 +32,67 @@ export class RegistroComponent {
   ]
 
   public cria: FormGroup;
-  nuevasCrias:{
-    nombre : string,
-    peso : number,
-    musculo : number,
-    marmoleo : number,
-    costo : number,
-    proveedor : number,
-    description : string
+  nuevasCrias: {
+    nombre: string,
+    peso: number,
+    musculo: number,
+    marmoleo: number,
+    costo: number,
+    proveedor: number,
+    description: string
   }[] = [];
   @Output() emitCrias = new EventEmitter<any>();
-  @ViewChild('formCria') form:any;
+  @ViewChild('formCria') form: any;
 
-  constructor(public request: RequestService, private fb: FormBuilder, public dialog:MatDialog) {
-    this.cria = this.fb.group({
-      nombre: '',
-      peso: 0,
-      costo: 0,
-      musculo: 0,
-      marmoleo: 0,
-      proveedor: '',
-      description: ''
+  constructor(public request: RequestService, public dialog: MatDialog) {
+    this.cria = new FormGroup({
+      nombre: new FormControl('', [Validators.required]),
+      proveedor: new FormControl('', [Validators.required]),
+      costo: new FormControl('', [Validators.required]),
+      musculo: new FormControl('', [Validators.required]),
+      marmoleo: new FormControl('', [Validators.required]),
+      peso: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
     });
   }
 
   guardar() {
-    if( this.nuevasCrias.length > 0 ){
-      this.request.postCria( this.nuevasCrias ).subscribe(response => {
-        this.dialog.open(DialogComponent,{data: {
-          mensaje : response.result
-        }});
+    if (this.nuevasCrias.length > 0) {
+      this.request.postCria(this.nuevasCrias).subscribe(response => {
+        this.dialog.open(DialogComponent, {
+          data: {
+            mensaje: response.result
+          }
+        });
         this.nuevasCrias = [];
-        this.emitCrias.emit( this.nuevasCrias );
+        this.emitCrias.emit(this.nuevasCrias);
       }, error => {
-        this.dialog.open(DialogComponent,{data: {
-          mensaje : 'Algo salio mal'
-        }});
+        this.dialog.open(DialogComponent, {
+          data: {
+            mensaje: 'Algo salio mal'
+          }
+        });
       });
-    }else {
-      this.dialog.open(DialogComponent,{data: {
-        mensaje : 'No hay crias que registrar'
-      }});
+    } else {
+      this.dialog.open(DialogComponent, {
+        data: {
+          mensaje: 'No hay crias que registrar'
+        }
+      });
     }
   }
 
   agregar() {
-    this.nuevasCrias.push( this.cria.value );
-    this.emitCrias.emit( this.nuevasCrias );
-    this.form.reset();
+    if (this.cria.valid) {
+      this.nuevasCrias.push(this.cria.value);
+      this.emitCrias.emit(this.nuevasCrias);
+      this.form.reset();
+    }else {
+      this.dialog.open(DialogComponent, {
+        data: {
+          mensaje: "Favor de llenar todos los campos"
+        }
+      });
+    }
   }
 }

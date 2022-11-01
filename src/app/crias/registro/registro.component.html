@@ -3,7 +3,7 @@
         <mat-card-title>Registro de crias</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <form [formGroup]="cria" #formCria="ngForm">
+        <form [formGroup]="cria" #formCria="ngForm" (ngSubmit)="agregar()">
             <mat-form-field class="col-12" appearance="fill">
                 <mat-label>Proveedor</mat-label>
                 <mat-select formControlName="proveedor" name="proveedor">
@@ -43,7 +43,7 @@
     </mat-card-content>
     <mat-card-footer class="my-3">
         <div class="row justify-content-between mx-4">
-            <button mat-raised-button color="primary" class="col-4" (click)="agregar()">Agregar</button>
+            <button mat-raised-button color="primary" class="col-4" (click)="this.formCria.ngSubmit.emit()">Agregar</button>
             <button mat-raised-button color="primary" class="col-4" (click)="guardar()">Guardar Todos</button>
         </div>
     </mat-card-footer>
